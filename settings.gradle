@@ -1,1 +1,1 @@
-include 'desktop', 'core', 'modelsandbox'
+include 'desktop', 'core', 'physicssandbox', 'physics'
