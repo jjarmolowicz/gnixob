@@ -8,9 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.net.URL;
-
-public class Gnixob extends ApplicationAdapter {
+public class Boxing extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture white;
 	Texture black;
