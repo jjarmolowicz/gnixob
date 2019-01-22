@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class PhysicalBoxer {
 
-    private static float BOXER_SPEED = 30f * 1000 / 60 / 60 / 60; //30 km/h
+    private static float BOXER_SPEED = 140f * 1000 / 60 / 60 / 60; //30 km/h
 
     private Body body;
 
@@ -43,7 +43,7 @@ public class PhysicalBoxer {
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 1.1f; // Make it bounce a little bit
 
-        body.createFixture(fixtureDef);
+        Fixture fixture = body.createFixture(fixtureDef);
         circle.dispose();
     }
 
