@@ -14,36 +14,37 @@ public class PhysicalBoxer {
     }
 
     private void createBoxer(World world) {
-        // First we create a body definition
         BodyDef bodyDef = new BodyDef();
-// We set our body to dynamic, for something like ground which doesn't move we would set it to StaticBody
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-// Set our body's starting position in the world
-
-// Create our body in the world using our body definition
         body = world.createBody(bodyDef);
-        addCircleToBody(0.2f, new Vector2(0, 0));
-        addCircleToBody(0.1f, new Vector2(0.2f, 0.2f));
-        addCircleToBody(0.1f, new Vector2(0.2f, -0.2f));
-
-        // Remember to dispose of any shapes after you're done with them!
-// BodyDef and FixtureDef don't need disposing, but shapes do.
-
+        addBoxerBodyToBody();
+        addFistToBody(0.1f, new Vector2(0.2f, 0.2f));
+        addFistToBody(0.1f, new Vector2(0.2f, -0.2f));
     }
 
-    private void addCircleToBody(float radius, Vector2 position) {
+    private void addBoxerBodyToBody() {
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(0.1f, 0.2f);
+        createFixtureFromShape(shape);
+        shape.dispose();
+    }
+
+    private void createFixtureFromShape(Shape shape) {
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = 0.0f;
+        fixtureDef.friction = 0.0f;
+        fixtureDef.restitution = 0;
+        body.createFixture(fixtureDef);
+    }
+
+    private void addFistToBody(float radius, Vector2 position) {
         // Create a circle shape and set its radius to 6
         CircleShape circle = new CircleShape();
         circle.setRadius(radius);
         circle.setPosition(position);
         // Create a fixture definition to apply our shape to
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = circle;
-        fixtureDef.density = 0.5f;
-        fixtureDef.friction = 0.4f;
-        fixtureDef.restitution = 1.1f; // Make it bounce a little bit
-
-        Fixture fixture = body.createFixture(fixtureDef);
+        createFixtureFromShape(circle);
         circle.dispose();
     }
 
