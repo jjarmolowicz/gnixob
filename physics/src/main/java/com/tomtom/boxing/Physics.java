@@ -115,4 +115,12 @@ public class Physics {
     public void dispose() {
         world.dispose();
     }
+
+    public BoxerVisualState getWhiteState() {
+        return white.getVisualState();
+    }
+
+    public BoxerVisualState getBlackState() {
+        return black.getVisualState();
+    }
 }

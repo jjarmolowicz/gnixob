@@ -3,7 +3,7 @@ package com.tomtom.boxing;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
-public class PhysicalBoxer {
+class PhysicalBoxer {
 
     private static float BOXER_SPEED = 140f * 1000 / 60 / 60 / 60; //30 km/h
 
@@ -18,8 +18,8 @@ public class PhysicalBoxer {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bodyDef);
         addBoxerBodyToBody();
-        addFistToBody(0.1f, new Vector2(0.2f, 0.2f));
-        addFistToBody(0.1f, new Vector2(0.2f, -0.2f));
+        addFistToBody(new Vector2(0.2f, 0.2f));
+        addFistToBody(new Vector2(0.2f, -0.2f));
     }
 
     private void addBoxerBodyToBody() {
@@ -38,10 +38,10 @@ public class PhysicalBoxer {
         body.createFixture(fixtureDef);
     }
 
-    private void addFistToBody(float radius, Vector2 position) {
+    private void addFistToBody(Vector2 position) {
         // Create a circle shape and set its radius to 6
         CircleShape circle = new CircleShape();
-        circle.setRadius(radius);
+        circle.setRadius(0.1f);
         circle.setPosition(position);
         // Create a fixture definition to apply our shape to
         createFixtureFromShape(circle);
@@ -94,8 +94,42 @@ public class PhysicalBoxer {
     public boolean areFaceToFace(PhysicalBoxer other) {
         if (body.getAngle() == 0) {
             return other.body.getPosition().x >= this.body.getPosition().x;
-        }else {
+        } else {
             return other.body.getPosition().x <= this.body.getPosition().x;
         }
+    }
+
+    BoxerVisualState getVisualState() {
+        return new BoxerVisualState() {
+            @Override
+            public float getX() {
+                return body.getPosition().x;
+            }
+
+            @Override
+            public float getY() {
+                return body.getPosition().y;
+            }
+
+            @Override
+            public boolean reversed() {
+                return body.getAngle() != 0;
+            }
+
+            @Override
+            public boolean isHit() {
+                return false;
+            }
+
+            @Override
+            public short leftArmOffset() {
+                return 0;
+            }
+
+            @Override
+            public short rightArmOffset() {
+                return 0;
+            }
+        };
     }
 }
