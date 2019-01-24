@@ -28,6 +28,7 @@ public class PhysicalFist {
         circle.setPosition(new Vector2(x, this.y));
         // Create a fixture definition to apply our shape to
         fixture = PhysicalBoxer.createFixtureFromShape(boxerBody, circle);
+        fixture.setSensor(true);
         circle.dispose();
     }
 

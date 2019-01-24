@@ -21,8 +21,17 @@ class PhysicalBoxer {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bodyDef);
         addBoxerBodyToBody();
+        addBoxerNoseToBody();
         leftFist = new PhysicalFist(body, 0.2f);
         rightFist = new PhysicalFist(body, -0.2f);
+    }
+
+    private void addBoxerNoseToBody() {
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(0.03f, 0.03f, new Vector2(0.13f, 0) , 0);
+        Fixture noseFixture = createFixtureFromShape(body, shape);
+        noseFixture.setSensor(true);
+        shape.dispose();
     }
 
     private void addBoxerBodyToBody() {
