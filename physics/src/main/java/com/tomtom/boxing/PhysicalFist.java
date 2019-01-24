@@ -10,7 +10,7 @@ public class PhysicalFist {
     private static float[] FIST_OFFSETS = {0, 0.025f, 0.05f, 0.1f, 0.2f, 0.3f, 0.5f};
     private Fixture fixture;
 
-    private int offsetPointer = 0;
+    private short offsetPointer = 0;
     private boolean punching = false;
     private Body boxerBody;
     private float y;
@@ -60,4 +60,7 @@ public class PhysicalFist {
         punching = true;
     }
 
+    public short offset() {
+        return offsetPointer;
+    }
 }

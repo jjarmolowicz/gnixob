@@ -116,12 +116,12 @@ class PhysicalBoxer {
 
             @Override
             public short leftArmOffset() {
-                return 0;
+                return leftFist.offset();
             }
 
             @Override
             public short rightArmOffset() {
-                return 0;
+                return rightFist.offset();
             }
         };
     }
