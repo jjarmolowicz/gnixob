@@ -106,6 +106,8 @@ public class Physics {
                 black.turnAround();
             }
         }
+        white.step();
+        black.step();
     }
 
     public World getWorld() {

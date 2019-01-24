@@ -8,6 +8,9 @@ class PhysicalBoxer {
     private static float BOXER_SPEED = 140f * 1000 / 60 / 60 / 60; //30 km/h
 
     private Body body;
+    private PhysicalFist leftFist;
+    private PhysicalFist rightFist;
+    private boolean lastPunhchedLeft;
 
     public PhysicalBoxer(World world) {
         createBoxer(world);
@@ -18,34 +21,24 @@ class PhysicalBoxer {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         body = world.createBody(bodyDef);
         addBoxerBodyToBody();
-        addFistToBody(new Vector2(0.2f, 0.2f));
-        addFistToBody(new Vector2(0.2f, -0.2f));
+        leftFist = new PhysicalFist(body, 0.2f);
+        rightFist = new PhysicalFist(body, -0.2f);
     }
 
     private void addBoxerBodyToBody() {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(0.1f, 0.2f);
-        createFixtureFromShape(shape);
+        createFixtureFromShape(body, shape);
         shape.dispose();
     }
 
-    private void createFixtureFromShape(Shape shape) {
+    static Fixture createFixtureFromShape(Body body, Shape shape) {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 0.0f;
         fixtureDef.friction = 0.0f;
         fixtureDef.restitution = 0;
-        body.createFixture(fixtureDef);
-    }
-
-    private void addFistToBody(Vector2 position) {
-        // Create a circle shape and set its radius to 6
-        CircleShape circle = new CircleShape();
-        circle.setRadius(0.1f);
-        circle.setPosition(position);
-        // Create a fixture definition to apply our shape to
-        createFixtureFromShape(circle);
-        circle.dispose();
+        return body.createFixture(fixtureDef);
     }
 
     public PhysicalBoxer moveToGivenPlaceInWorld(float x, float y, float angle) {
@@ -131,5 +124,20 @@ class PhysicalBoxer {
                 return 0;
             }
         };
+    }
+
+    public void step() {
+        rightFist.step();
+        leftFist.step();
+
+        if (rightFist.canPunch() && leftFist.canPunch()) {
+            if (lastPunhchedLeft) {
+                rightFist.initPunch();
+                lastPunhchedLeft = false;
+            } else {
+                leftFist.initPunch();
+                lastPunhchedLeft = true;
+            }
+        }
     }
 }
