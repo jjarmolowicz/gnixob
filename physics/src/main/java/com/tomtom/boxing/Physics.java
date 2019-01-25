@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
+import java.util.Calendar;
+
 public class Physics {
 
     static final float STEP_TIME = 1f / 60f;
@@ -24,7 +26,52 @@ public class Physics {
         white = new PhysicalBoxer(world);
         white.moveToGivenPlaceInWorld(3, 3, 0).goThatWay(WorldDirections.WEST);
         black = new PhysicalBoxer(world);
-        black.moveToGivenPlaceInWorld(5, 5, (float) Math.toRadians(180)).goThatWay(WorldDirections.EAST);
+            black.moveToGivenPlaceInWorld(5, 3.2f, (float) Math.toRadians(180)).goThatWay(WorldDirections.EAST);
+        world.setContactListener(new ContactListener() {
+            @Override
+            public void beginContact(Contact contact) {
+                Fixture fixtureA = contact.getFixtureA();
+                Fixture fixtureB = contact.getFixtureB();
+                Object aUSerData = fixtureA.getUserData();
+                Object bUserData = fixtureB.getUserData();
+
+
+                System.out.println("aUSerData = " + aUSerData);
+                System.out.println("bUserData = " + bUserData);
+
+                fixtureA.getBody().setLinearVelocity(0,0);
+                fixtureB.getBody().setLinearVelocity(0,0);
+
+                if (aUSerData instanceof ImportantBoxerPart) {
+                    if (bUserData instanceof  ImportantBoxerPart) {
+                        ImportantBoxerPart bUserData1 = (ImportantBoxerPart) bUserData;
+                        ImportantBoxerPart aUSerData1 = (ImportantBoxerPart) aUSerData;
+                        bUserData1.collisionWithOther(aUSerData1);
+                        aUSerData1.collisionWithOther(bUserData1);
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void endContact(Contact contact) {
+            }
+
+            @Override
+            public void preSolve(Contact contact, Manifold oldManifold) {
+                System.out.println("Calendar.getInstance().toString() = " + Calendar.getInstance().getTime().toGMTString());
+                System.out.println("pre contact.getFixtureA().getUserData() = " + contact.getFixtureA().getUserData());
+                System.out.println("pre contact.getFixtureB().getUserData() = " + contact.getFixtureB().getUserData());
+            }
+
+            @Override
+            public void postSolve(Contact contact, ContactImpulse impulse) {
+                System.out.println("Calendar.getInstance().toString() = " + Calendar.getInstance().getTime().toGMTString());
+                System.out.println("post contact.getFixtureA().getUserData() = " + contact.getFixtureA().getUserData());
+                System.out.println("post contact.getFixtureB().getUserData() = " + contact.getFixtureB().getUserData());
+            }
+        });
 
     }
 

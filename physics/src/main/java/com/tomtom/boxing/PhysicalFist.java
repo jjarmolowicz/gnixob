@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
-public class PhysicalFist {
+public class PhysicalFist implements ImportantBoxerPart {
     public static final float BASE_X = 0.2f;
     private static float[] FIST_OFFSETS = {0, 0.025f, 0.05f, 0.1f, 0.2f, 0.3f, 0.5f};
     private Fixture fixture;
@@ -14,6 +14,8 @@ public class PhysicalFist {
     private boolean punching = false;
     private Body boxerBody;
     private float y;
+
+    private short accumulator = 0;
 
     public PhysicalFist(Body boxerBody, float y) {
         this.boxerBody = boxerBody;
@@ -28,20 +30,26 @@ public class PhysicalFist {
         circle.setPosition(new Vector2(x, this.y));
         // Create a fixture definition to apply our shape to
         fixture = PhysicalBoxer.createFixtureFromShape(boxerBody, circle);
-        fixture.setSensor(true);
+        fixture.setUserData(this);
         circle.dispose();
     }
 
     public void step() {
         if (punching) {
             if (offsetPointer < FIST_OFFSETS.length - 1) {
-                ++offsetPointer;
+                if (accumulator++ > 5) {
+                    ++offsetPointer;
+                    accumulator = 0;
+                }
             } else {
                 punching = false;
             }
         } else {
             if (offsetPointer > 0) {
-                --offsetPointer;
+                if (accumulator++ > 5) {
+                    --offsetPointer;
+                    accumulator = 0;
+                }
             }
         }
 
@@ -63,5 +71,26 @@ public class PhysicalFist {
 
     public short offset() {
         return offsetPointer;
+    }
+
+    @Override
+    public void collisionWithOther(ImportantBoxerPart other) {
+        punching = false;
+    }
+
+    public boolean isPunching() {
+        return punching;
+    }
+
+    @Override
+    public String toString() {
+        return "PhysicalFist{" +
+                "fixture=" + fixture +
+                ", offsetPointer=" + offsetPointer +
+                ", punching=" + punching +
+                ", boxerBody=" + boxerBody +
+                ", y=" + y +
+                ", accumulator=" + accumulator +
+                '}';
     }
 }
