@@ -2,10 +2,6 @@ package com.tomtom.boxing;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.sun.jndi.toolkit.ctx.AtomicContext;
-
-import java.util.Calendar;
-import java.util.concurrent.atomic.AtomicInteger;
 
 class PhysicalBoxer {
 
@@ -26,22 +22,23 @@ class PhysicalBoxer {
         body = world.createBody(bodyDef);
         addBoxerBodyToBody();
         addBoxerNoseToBody();
-        leftFist = new PhysicalFist(body, 0.2f);
-        rightFist = new PhysicalFist(body, -0.2f);
+        leftFist = new PhysicalFist(body, PhysicalFist.FistSide.LEFT);
+        rightFist = new PhysicalFist(body, PhysicalFist.FistSide.RIGHT);
     }
 
     private void addBoxerNoseToBody() {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(0.03f, 0.03f, new Vector2(0.13f, 0), 0);
         Fixture noseFixture = createFixtureFromShape(body, shape);
-        noseFixture.setUserData(new Nose());
+        noseFixture.setUserData(new Nose(body));
         shape.dispose();
     }
 
     private void addBoxerBodyToBody() {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(0.1f, 0.2f);
-        createFixtureFromShape(body, shape).setUserData((ImportantBoxerPart) other -> {});
+        createFixtureFromShape(body, shape).setUserData((ImportantBoxerPart) other -> {
+        });
         shape.dispose();
     }
 
@@ -51,7 +48,7 @@ class PhysicalBoxer {
         fixtureDef.density = 0.0f;
         fixtureDef.friction = 0.0f;
         fixtureDef.restitution = 0;
-        fixtureDef.isSensor = true;
+//        fixtureDef.isSensor = true;
         return body.createFixture(fixtureDef);
     }
 
@@ -155,25 +152,4 @@ class PhysicalBoxer {
         }
     }
 
-    private static class Nose implements ImportantBoxerPart {
-        private AtomicInteger counter = new AtomicInteger(0);
-
-        @Override
-        public void collisionWithOther(ImportantBoxerPart other) {
-            if (other instanceof PhysicalFist) {
-                if (((PhysicalFist) other).isPunching()) {
-                    System.out.println("Calendar.getInstance().toString() = " + Calendar.getInstance().getTime().toGMTString());
-                    System.out.println("other = " + other);
-                    System.out.println("nose hits counter = " + counter.incrementAndGet());
-                }
-            }
-        }
-
-        @Override
-        public String toString() {
-            return "Nose{" +
-                    "counter=" + counter +
-                    '}';
-        }
-    }
 }

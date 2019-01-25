@@ -6,6 +6,10 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
 public class PhysicalFist implements ImportantBoxerPart {
+    enum FistSide {
+        LEFT,RIGHT;
+    }
+
     public static final float BASE_X = 0.2f;
     private static float[] FIST_OFFSETS = {0, 0.025f, 0.05f, 0.1f, 0.2f, 0.3f, 0.5f};
     private Fixture fixture;
@@ -14,12 +18,14 @@ public class PhysicalFist implements ImportantBoxerPart {
     private boolean punching = false;
     private Body boxerBody;
     private float y;
+    private FistSide fistSide;
 
     private short accumulator = 0;
 
-    public PhysicalFist(Body boxerBody, float y) {
+    public PhysicalFist(Body boxerBody,FistSide fistSide) {
         this.boxerBody = boxerBody;
-        this.y = y;
+        this.y = (FistSide.LEFT.equals(fistSide)?0.2f:-0.2f);
+        this.fistSide = fistSide;
         // Create a circle shape and set its radius to 6
         putFistIntoLocatoin(BASE_X);
     }
@@ -75,11 +81,12 @@ public class PhysicalFist implements ImportantBoxerPart {
 
     @Override
     public void collisionWithOther(ImportantBoxerPart other) {
+        if (other instanceof Nose) {
+            if (punching) {
+                ((Nose) other).punchedByFist(fistSide);
+            }
+        }
         punching = false;
-    }
-
-    public boolean isPunching() {
-        return punching;
     }
 
     @Override
