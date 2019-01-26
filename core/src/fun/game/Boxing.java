@@ -76,8 +76,6 @@ public class Boxing extends ApplicationAdapter {
 			@Override
 			public boolean keyTyped(char character) {
 
-				System.out.println(character);
-				System.out.println("asdf");
 				return true;
 			}
 
