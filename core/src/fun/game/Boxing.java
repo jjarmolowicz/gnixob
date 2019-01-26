@@ -26,6 +26,8 @@ public class Boxing extends ApplicationAdapter {
 	private int x =200; //fancy.... sooooo fancyyyy
 	private int y =0;
 
+	int keyDown = -2;
+
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -55,24 +57,19 @@ public class Boxing extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(new InputProcessor() {
 			@Override
 			public boolean keyDown(int keycode) {
-				if (keycode == Input.Keys.LEFT) {
-					x -= 10;
-				}else if (keycode == Input.Keys.RIGHT) {
-					x += 10;
-				}else if (keycode == Input.Keys.UP) {
-					y += 10;
-				}else if (keycode == Input.Keys.DOWN) {
-					y -= 10;
-				}
+				keyDown = keycode;
+
 				if (keycode == Input.Keys.SPACE){
 					animate = true;
 					start = System.currentTimeMillis();
 				}
-				return true;
+				return false;
 			}
 
 			@Override
 			public boolean keyUp(int keycode) {
+
+				keyDown = -2;
 				return false;
 			}
 
@@ -81,7 +78,7 @@ public class Boxing extends ApplicationAdapter {
 
 				System.out.println(character);
 				System.out.println("asdf");
-				return false;
+				return true;
 			}
 
 			@Override
@@ -133,6 +130,18 @@ public class Boxing extends ApplicationAdapter {
 				black = black0;
 			}
 		}
+
+
+		if (keyDown == Input.Keys.LEFT) {
+			x -= 10;
+		}else if (keyDown == Input.Keys.RIGHT) {
+			x += 10;
+		}else if (keyDown == Input.Keys.UP) {
+			y += 10;
+		}else if (keyDown == Input.Keys.DOWN) {
+			y -= 10;
+		}
+
 		batch.draw(black, x, y);
 		batch.draw(white, 0, 0);
 		batch.end();
