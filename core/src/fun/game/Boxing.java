@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-public class Gnixob extends ApplicationAdapter {
+public class Boxing extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture white;
 	Texture black;
@@ -78,6 +78,9 @@ public class Gnixob extends ApplicationAdapter {
 
 			@Override
 			public boolean keyTyped(char character) {
+
+				System.out.println(character);
+				System.out.println("asdf");
 				return false;
 			}
 
@@ -111,6 +114,8 @@ public class Gnixob extends ApplicationAdapter {
 	boolean animate = false;
 	long start = 0;
 
+	long frameDuration = 30;
+
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(0.35f, 0.7f, 0.2f, 1);
@@ -118,13 +123,13 @@ public class Gnixob extends ApplicationAdapter {
 		batch.begin();
 		if (animate){
 			long step = System.currentTimeMillis() - start;
-			if (step<40 || step > 280){
+			if (step<40 || (step > frameDuration*7 && step<frameDuration*8)){
 				black = black1;
-			}else if (step<80 || step > 240){
+			}else if (step<frameDuration*2 || (step > frameDuration*6 && step<frameDuration*8)){
 				black = black2;
-			}else if (step<120 || step > 200){
+			}else if (step<frameDuration*3 || (step > frameDuration*5 && step<frameDuration*8)){
 				black = black3;
-			}else if (step>320){
+			}else if (step>frameDuration*8){
 				black = black0;
 			}
 		}
