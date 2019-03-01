@@ -15,7 +15,6 @@ public class Physics {
     private PhysicalBoxer white;
     private PhysicalBoxer black;
 
-
     public void create() {
         Box2D.init();
         world = new World(new Vector2(0, 0), true);
@@ -125,10 +124,13 @@ public class Physics {
         horizontalBar(2);
     }
 
-    void stepWorld() {
+    void stepWorld(BoxerCommand whiteCommand, BoxerCommand blackCommand) {
         float delta = Gdx.graphics.getDeltaTime();
 
         accumulator += Math.min(delta, 0.25f);
+
+        handleBoxerCommand(whiteCommand, white);
+        handleBoxerCommand(blackCommand, black);
 
         if (accumulator >= STEP_TIME) {
             accumulator -= STEP_TIME;
@@ -140,6 +142,46 @@ public class Physics {
         }
         white.step();
         black.step();
+    }
+
+    private static void handleBoxerCommand(BoxerCommand command, PhysicalBoxer boxer) {
+        if (command==null) {
+            return;
+        }
+        switch (command) {
+            case MOVE_FORWARD:
+                if (boxer.getVisualState().reversed()) {
+                    boxer.goThatWay(WorldDirections.EAST);
+                } else {
+                    boxer.goThatWay(WorldDirections.WEST);
+                }
+                break;
+            case MOVE_BACK:
+                if (boxer.getVisualState().reversed()) {
+                    boxer.goThatWay(WorldDirections.WEST);
+                } else {
+                    boxer.goThatWay(WorldDirections.EAST);
+                }
+                break;
+            case MOVE_LEFT:
+                if (boxer.getVisualState().reversed()) {
+                    boxer.goThatWay(WorldDirections.SOUTH);
+                } else {
+                    boxer.goThatWay(WorldDirections.NORTH);
+                }
+                break;
+            case MOVE_RIGHT:
+                if (boxer.getVisualState().reversed()) {
+                    boxer.goThatWay(WorldDirections.NORTH);
+                } else {
+                    boxer.goThatWay(WorldDirections.SOUTH);
+                }
+                break;
+
+            case STOP:
+                boxer.stop();
+                break;
+        }
     }
 
     public World getWorld() {

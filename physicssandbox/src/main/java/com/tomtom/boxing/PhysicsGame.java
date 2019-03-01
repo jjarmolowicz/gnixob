@@ -14,6 +14,8 @@ public class PhysicsGame extends ApplicationAdapter {
 
     Box2DDebugRenderer debugRenderer;
     private Physics physics;
+    private DummyRobotBoxerController whiteController;
+    private DummyRobotBoxerController blackController;
 
     @Override
     public void create() {
@@ -25,6 +27,9 @@ public class PhysicsGame extends ApplicationAdapter {
 
         physics = new Physics();
         physics.create();
+
+        whiteController = new DummyRobotBoxerController();
+        blackController = new DummyRobotBoxerController();
     }
 
     @Override
@@ -37,7 +42,7 @@ public class PhysicsGame extends ApplicationAdapter {
         Gdx.gl.glClearColor(34f / 255, 139f / 255, 34f / 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        physics.stepWorld();
+        physics.stepWorld(whiteController.tick(), blackController.tick());
 
         debugRenderer.render(physics.getWorld(), camera.combined);
     }

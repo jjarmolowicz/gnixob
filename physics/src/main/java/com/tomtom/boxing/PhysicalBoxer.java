@@ -11,6 +11,8 @@ class PhysicalBoxer {
     private PhysicalFist leftFist;
     private PhysicalFist rightFist;
     private boolean lastPunhchedLeft;
+    private Vector2 currentImpulse = new Vector2(0, 0);
+    private float scale;
 
     public PhysicalBoxer(World world) {
         createBoxer(world);
@@ -24,6 +26,7 @@ class PhysicalBoxer {
         addBoxerNoseToBody();
         leftFist = new PhysicalFist(body, PhysicalFist.FistSide.LEFT);
         rightFist = new PhysicalFist(body, PhysicalFist.FistSide.RIGHT);
+        scale = body.getMass() * BOXER_SPEED;
     }
 
     private void addBoxerNoseToBody() {
@@ -87,12 +90,23 @@ class PhysicalBoxer {
             default:
                 throw new RuntimeException("unknown constant: " + dir);
         }
-        float scale = body.getMass() * BOXER_SPEED;
 
-        impulse.scl(scale);
-
-        body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
+        recalcScaleVectorAndApplyImpulse(impulse);
         return this;
+    }
+
+    private void recalcScaleVectorAndApplyImpulse(Vector2 impulse) {
+        Vector2 realImpulse = counterCurrentPlusNew(impulse);
+        realImpulse.scl(scale);
+        body.applyLinearImpulse(realImpulse, body.getWorldCenter(), true);
+    }
+
+    private Vector2 counterCurrentPlusNew(Vector2 newVector) {
+        Vector2 result = new Vector2(this.currentImpulse);
+        this.currentImpulse = newVector;
+        result.rotate(180);
+        result.add(newVector);
+        return result;
     }
 
     public boolean areFaceToFace(PhysicalBoxer other) {
@@ -152,4 +166,7 @@ class PhysicalBoxer {
         }
     }
 
+    public void stop() {
+        recalcScaleVectorAndApplyImpulse(new Vector2(0,0));
+    }
 }
