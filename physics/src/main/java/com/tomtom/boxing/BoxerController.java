@@ -1,5 +1,8 @@
 package com.tomtom.boxing;
 
 public interface BoxerController {
-    BoxerCommand tick();
+
+    void init(BoxerCommander commander);
+
+    void tick();
 }

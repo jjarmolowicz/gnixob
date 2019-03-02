@@ -1,19 +1,37 @@
 package com.tomtom.boxing;
 
+import java.time.Duration;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class DummyRobotBoxerController implements BoxerController {
     private Random rand = new Random();
-    private int ticker =0 ;
+    private Duration sleep;
+    private BoxerCommander commander;
+
+    public DummyRobotBoxerController(Duration sleep) {
+
+        this.sleep = sleep;
+    }
 
     @Override
-    public BoxerCommand tick() {
-        if (ticker++ ==10) {
-            ticker = 0;
-            if (rand.nextBoolean()) {
-                return BoxerCommand.values()[rand.nextInt(BoxerCommand.values().length)];
-            }
+    public void init(BoxerCommander commander) {
+        this.commander = commander;
+    }
+
+    @Override
+    public void tick() {
+        try {
+            TimeUnit.MILLISECONDS.sleep(sleep.toMillis());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
         }
-        return null;
+
+        if (rand.nextBoolean()) {
+            commander.setCommand(BoxerCommand.values()[rand.nextInt(BoxerCommand.values().length)]);
+            return;
+        }
+        commander.setCommand(null);
     }
 }

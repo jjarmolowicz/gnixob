@@ -7,6 +7,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
+import java.time.Duration;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class PhysicsGame extends ApplicationAdapter {
 
     OrthographicCamera camera;
@@ -16,6 +21,12 @@ public class PhysicsGame extends ApplicationAdapter {
     private Physics physics;
     private DummyRobotBoxerController whiteController;
     private DummyRobotBoxerController blackController;
+    private BoxerCommander whiteCommander;
+    private BoxerCommander blackCommander;
+    private Thread whiteThread;
+    private RunnableControllerContainer whiteContainer;
+    private RunnableControllerContainer blackContainer;
+    private Thread blackThread;
 
     @Override
     public void create() {
@@ -28,8 +39,22 @@ public class PhysicsGame extends ApplicationAdapter {
         physics = new Physics();
         physics.create();
 
-        whiteController = new DummyRobotBoxerController();
-        blackController = new DummyRobotBoxerController();
+
+        whiteController = new DummyRobotBoxerController(Duration.ofSeconds(1));
+        whiteCommander = new BoxerCommander();
+        whiteController.init(whiteCommander);
+        blackController = new DummyRobotBoxerController(Duration.ofMillis(100));
+        blackCommander = new BoxerCommander();
+        blackController.init(blackCommander);
+
+        whiteContainer = new RunnableControllerContainer(whiteController);
+        whiteThread = new Thread(whiteContainer);
+
+        blackContainer = new RunnableControllerContainer(blackController);
+        blackThread = new Thread(blackContainer);
+
+        whiteThread.start();
+        blackThread.start();
     }
 
     @Override
@@ -42,7 +67,9 @@ public class PhysicsGame extends ApplicationAdapter {
         Gdx.gl.glClearColor(34f / 255, 139f / 255, 34f / 255, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        physics.stepWorld(whiteController.tick(), blackController.tick());
+        whiteContainer.tryToNotifyAboutATick();
+        blackContainer.tryToNotifyAboutATick();
+        physics.stepWorld(whiteCommander.getCommand(), blackCommander.getCommand());
 
         debugRenderer.render(physics.getWorld(), camera.combined);
     }
@@ -51,5 +78,38 @@ public class PhysicsGame extends ApplicationAdapter {
     public void dispose() {
         physics.dispose();
         debugRenderer.dispose();
+    }
+
+    private static class RunnableControllerContainer implements Runnable {
+        final Lock lock = new ReentrantLock();
+        final Condition newTick = lock.newCondition();
+        private final BoxerController controller;
+
+        public RunnableControllerContainer(BoxerController controller) {
+            this.controller = controller;
+        }
+
+        @Override
+        public void run() {
+            while (!Thread.currentThread().isInterrupted()) {
+                lock.lock();
+                try {
+                    newTick.await();
+                    controller.tick();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException(e);
+                } finally {
+                    lock.unlock();
+                }
+            }
+        }
+
+        public void tryToNotifyAboutATick() {
+            if (lock.tryLock()) {
+                newTick.signal();
+                lock.unlock();
+            }
+        }
     }
 }
