@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 public class DummyRobotBoxerController implements BoxerController {
     private Random rand = new Random();
     private Duration sleep;
-    private BoxerCommander commander;
 
     public DummyRobotBoxerController(Duration sleep) {
 
@@ -15,12 +14,12 @@ public class DummyRobotBoxerController implements BoxerController {
     }
 
     @Override
-    public void init(BoxerCommander commander) {
-        this.commander = commander;
+    public void init() {
+
     }
 
     @Override
-    public void tick() {
+    public BoxerCommand tick() {
         try {
             TimeUnit.MILLISECONDS.sleep(sleep.toMillis());
         } catch (InterruptedException e) {
@@ -29,9 +28,8 @@ public class DummyRobotBoxerController implements BoxerController {
         }
 
         if (rand.nextBoolean()) {
-            commander.setCommand(BoxerCommand.values()[rand.nextInt(BoxerCommand.values().length)]);
-            return;
+            return BoxerCommand.values()[rand.nextInt(BoxerCommand.values().length)];
         }
-        commander.setCommand(null);
+        return null;
     }
 }
