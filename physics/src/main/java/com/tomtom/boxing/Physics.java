@@ -124,7 +124,9 @@ public class Physics {
         horizontalBar(2);
     }
 
-    void stepWorld(BoxerCommand whiteCommand, BoxerCommand blackCommand) {
+
+    //yeah I know... sorry
+    public void stepWorld(BoxerCommand whiteCommand, BoxerCommand blackCommand) {
         float delta = Gdx.graphics.getDeltaTime();
 
         accumulator += Math.min(delta, 0.25f);
