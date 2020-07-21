@@ -37,8 +37,6 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 	private int y =0;
 
 
-
-
 	OrthographicCamera camera;
 	ExtendViewport viewport;
 
@@ -56,6 +54,7 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 	@Override
 	public void create() {
 		camera = new OrthographicCamera();
+		camera.zoom = 0.5f;
 		viewport = new ExtendViewport(8, 8, camera);
 
 
