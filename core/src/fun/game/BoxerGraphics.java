@@ -66,7 +66,6 @@ public class BoxerGraphics {
                 new ArrayList<Texture>(Arrays.asList(white, white,white,white1, white2, white3, white3,white3)),
                 new ArrayList<Texture>(Arrays.asList(rwhite, rwhite,rwhite,rwhite1, rwhite2, rwhite3, rwhite3,rwhite3)),
                 new ArrayList<Texture>(Arrays.asList(rwhite, rwhite,rwhite,rwhiteL1, rwhiteL2, rwhiteL3, rwhiteL3,rwhiteL3)));
-     //   WHITE(new ArrayList<Texture>(Arrays.asList(white)), new ArrayList<Texture>(Arrays.asList(white)), new ArrayList<Texture>(Arrays.asList(white)), new ArrayList<Texture>(Arrays.asList(white)));
         List<Texture> statesL;
         List<Texture> statesR;
 
@@ -80,7 +79,7 @@ public class BoxerGraphics {
             this.statesRL = statesRL;
             this.statesRR = statesRR;
         }
-    } //odwrocony chyba na odwrot macha lapami
+    }
 
 
     public BoxerGraphics() {
@@ -128,8 +127,7 @@ public class BoxerGraphics {
 
     public void reder(BoxerVisualState boxerState, BW blackOrWhite){
         batch.begin();
-//        batch.draw(black, x, y);
-//        boxerState.
+
         Texture boxerTexture = null;
         boxerTexture = getTexture(boxerState, blackOrWhite);
         int reverseOffset = 0;
@@ -137,7 +135,9 @@ public class BoxerGraphics {
             reverseOffset = boxerTexture.getWidth();
         }
 
+
         batch.draw(boxerTexture, boxerState.getX()*60-reverseOffset, boxerState.getY()*60); // FIXME - that '60' ain't that great
+
         System.out.println(boxerState.getX());
         batch.end();
     }
