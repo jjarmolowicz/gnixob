@@ -16,13 +16,15 @@ public class DesktopLauncher {
 	OrthographicCamera camera;
 	ExtendViewport viewport;
 
+	public static int height = 900;
+	public static int width = 900;
+
 	Box2DDebugRenderer debugRenderer;
 	private Physics physics;
 	private BoxerController whiteController;
 	private BoxerController blackController;
 	private Thread whiteThread;
-//	private RunnableControllerContainer whiteContainer;
-//	private RunnableControllerContainer blackContainer;
+
 	public DesktopLauncher() {
 
 		debugRenderer = new Box2DDebugRenderer();
@@ -30,6 +32,8 @@ public class DesktopLauncher {
 
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.height=height;
+		config.width=width;
 
 //		new LwjglApplication(new Boxing(), config);
 		new LwjglApplication(new BoxingWithPhisics(), config);

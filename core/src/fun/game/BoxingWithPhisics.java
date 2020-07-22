@@ -54,7 +54,7 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 	@Override
 	public void create() {
 		camera = new OrthographicCamera();
-		camera.zoom = 0.5f;
+//		camera.zoom = 0.5f;
 		viewport = new ExtendViewport(8, 8, camera);
 
 
@@ -63,8 +63,8 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 		physics = new Physics();
 		physics.create();
 
-		whiteBoxerGraphics = new BoxerGraphics();
-		blackBoxerGraphics = new BoxerGraphics();
+		whiteBoxerGraphics = new BoxerGraphics(camera);
+		blackBoxerGraphics = new BoxerGraphics(camera);
 
 		whiteController = new DummyRobotBoxerController(Duration.ofSeconds(1));
 		whiteController.init();
@@ -91,6 +91,7 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 		Gdx.gl.glClearColor(34f / 255, 139f / 255, 34f / 255, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		camera.update();
 		whiteContainer.tryToNotifyAboutATick();
 		blackContainer.tryToNotifyAboutATick();
 		physics.stepWorld(whiteContainer.command.get(), blackContainer.command.get());

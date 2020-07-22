@@ -1,8 +1,10 @@
 package fun.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.tomtom.boxing.BoxerVisualState;
 
 import java.util.ArrayList;
@@ -54,8 +56,6 @@ public class BoxerGraphics {
     static Texture white2;
     static Texture white3;
 
-    List<Texture> dupa = new ArrayList<Texture>(Arrays.asList(black,black1));
-
     public enum BW{
         BLACK(new ArrayList<Texture>(Arrays.asList(black, black,black0,black1, black2, black3, black3,black3)),
                 new ArrayList<Texture>(Arrays.asList(black, black, black, black0, blackL1, blackL2, blackL3)),
@@ -82,8 +82,12 @@ public class BoxerGraphics {
     }
 
 
-    public BoxerGraphics() {
+    Camera cam;
+
+    public BoxerGraphics(Camera camera) {
         batch = new SpriteBatch();
+        this.cam = camera;
+//        batch.setProjectionMatrix(cam.combined);
         white = new Texture(Gdx.files.internal("whiteBoxer.png"));
         black = new Texture(Gdx.files.internal("blackBoxer.png"));
         black0 = new Texture(Gdx.files.internal("blackBoxer.png"));
@@ -136,9 +140,20 @@ public class BoxerGraphics {
         }
 
 
-        batch.draw(boxerTexture, boxerState.getX()*60-reverseOffset, boxerState.getY()*60); // FIXME - that '60' ain't that great
+//        batch.draw(boxerTexture, boxerState.getX()-reverseOffset, boxerState.getY()); // FIXME - that '60' ain't that great
+//        batch.draw(boxerTexture, 0, 0); // FIXME - that '60' ain't that great
 
         System.out.println(boxerState.getX());
+
+        Vector3 vec=new Vector3(boxerState.getX(), boxerState.getY(),0);
+        cam.project(vec);
+
+        batch.draw(boxerTexture, vec.x-reverseOffset, vec.y); // FIXME - that '60' ain't that great
+
+
+        System.out.println("vec.x = " + vec.x);
+        System.out.println("vec.y = " + vec.y);
+
         batch.end();
     }
 
