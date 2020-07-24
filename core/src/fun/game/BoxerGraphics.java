@@ -57,15 +57,15 @@ public class BoxerGraphics {
     static Texture white3;
 
     public enum BW{
-        BLACK(new ArrayList<Texture>(Arrays.asList(black, black,black0,black1, black2, black3, black3,black3)),
+        BLACK(new ArrayList<Texture>(Arrays.asList(black, black,black0,black0, black1, black2, black3,black3)),
                 new ArrayList<Texture>(Arrays.asList(black, black, black, black0, blackL1, blackL2, blackL3)),
-                new ArrayList<Texture>(Arrays.asList(rblack, rblack,rblack,rblack1, rblack2, rblack3, rblack3,rblack3)),
-                new ArrayList<Texture>(Arrays.asList(rblack, rblack,rblack,rblackL1, rblackL2, rblackL3, rblackL3,rblackL3))),
+                new ArrayList<Texture>(Arrays.asList(rblack, rblack,rblack,rblack, rblack1, rblack2, rblack3,rblack3)),
+                new ArrayList<Texture>(Arrays.asList(rblack, rblack,rblack,rblack, rblackL1, rblackL2, rblackL3,rblackL3))),
 
-        WHITE(new ArrayList<Texture>(Arrays.asList(white, white,white,white1, white2, white3, white3,white3)),
-                new ArrayList<Texture>(Arrays.asList(white, white,white,white1, white2, white3, white3,white3)),
-                new ArrayList<Texture>(Arrays.asList(rwhite, rwhite,rwhite,rwhite1, rwhite2, rwhite3, rwhite3,rwhite3)),
-                new ArrayList<Texture>(Arrays.asList(rwhite, rwhite,rwhite,rwhiteL1, rwhiteL2, rwhiteL3, rwhiteL3,rwhiteL3)));
+        WHITE(new ArrayList<Texture>(Arrays.asList(white, white,white,white, white1, white2, white3,white3)),
+                new ArrayList<Texture>(Arrays.asList(white, white,white,white, whiteL1, whiteL2, whiteL3,whiteL3)),
+                new ArrayList<Texture>(Arrays.asList(rwhite, rwhite,rwhite,rwhite, rwhite1, rwhite2, rwhite3,rwhite3)),
+                new ArrayList<Texture>(Arrays.asList(rwhite, rwhite,rwhite,rwhite, rwhiteL1, rwhiteL2, rwhiteL3,rwhiteL3)));
         List<Texture> statesL;
         List<Texture> statesR;
 
@@ -136,7 +136,9 @@ public class BoxerGraphics {
         boxerTexture = getTexture(boxerState, blackOrWhite);
         int reverseOffset = 0;
         if (boxerState.reversed()){
-            reverseOffset = boxerTexture.getWidth();
+            reverseOffset = boxerTexture.getWidth()-30;
+        }else{
+            reverseOffset = 30;
         }
 
 
@@ -148,7 +150,7 @@ public class BoxerGraphics {
         Vector3 vec=new Vector3(boxerState.getX(), boxerState.getY(),0);
         cam.project(vec);
 
-        batch.draw(boxerTexture, vec.x-reverseOffset, vec.y); // FIXME - that '60' ain't that great
+        batch.draw(boxerTexture, vec.x-reverseOffset, vec.y-boxerTexture.getHeight()/2); // FIXME - that '60' ain't that great
 
 
         System.out.println("vec.x = " + vec.x);
