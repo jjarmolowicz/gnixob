@@ -19,7 +19,7 @@ public class PhysicsGame extends ApplicationAdapter {
     ExtendViewport viewport;
 
     Box2DDebugRenderer debugRenderer;
-    private Physics physics;
+    private static Physics physics;
     private DummyRobotBoxerController whiteController;
     private DummyRobotBoxerController blackController;
     private Thread whiteThread;
@@ -40,9 +40,9 @@ public class PhysicsGame extends ApplicationAdapter {
 
 
         whiteController = new DummyRobotBoxerController(Duration.ofSeconds(1));
-        whiteController.init();
+        whiteController.init(false);
         blackController = new DummyRobotBoxerController(Duration.ofMillis(100));
-        blackController.init();
+        blackController.init(true);
 
         whiteContainer = new RunnableControllerContainer(whiteController);
         whiteThread = new Thread(whiteContainer);

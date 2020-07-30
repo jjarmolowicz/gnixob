@@ -36,10 +36,7 @@ public class Physics {
                     if (bUserData instanceof ImportantBoxerPart) {
                         ImportantBoxerPart bUserData1 = (ImportantBoxerPart) bUserData;
                         ImportantBoxerPart aUSerData1 = (ImportantBoxerPart) aUSerData;
-
-//                        to nie to - poprostu sie odbija?
-//                        aUSerData1.collisionWithOther(bUserData1);
-//                        bUserData1.collisionWithOther(aUSerData1);
+                        
                     }
                 }
 
