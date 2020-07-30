@@ -101,6 +101,7 @@ class PhysicalBoxer {
         body.applyLinearImpulse(realImpulse, body.getWorldCenter(), true);
     }
 
+
     private Vector2 counterCurrentPlusNew(Vector2 newVector) {
         Vector2 result = new Vector2(this.currentImpulse);
         this.currentImpulse = newVector;
@@ -167,6 +168,8 @@ class PhysicalBoxer {
     }
 
     public void stop() {
+        body.setAngularVelocity(0);
+        body.setLinearVelocity(0, 0);
         recalcScaleVectorAndApplyImpulse(new Vector2(0,0));
     }
 }

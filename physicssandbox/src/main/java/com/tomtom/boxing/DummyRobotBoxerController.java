@@ -14,12 +14,12 @@ public class DummyRobotBoxerController implements BoxerController {
     }
 
     @Override
-    public void init() {
+    public void init(boolean isBlack) {
 
     }
 
     @Override
-    public BoxerCommand tick() {
+    public BoxerCommand tick(Physics physics) {
         try {
             TimeUnit.MILLISECONDS.sleep(sleep.toMillis());
         } catch (InterruptedException e) {

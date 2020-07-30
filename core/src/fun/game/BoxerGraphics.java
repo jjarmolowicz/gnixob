@@ -136,25 +136,19 @@ public class BoxerGraphics {
         boxerTexture = getTexture(boxerState, blackOrWhite);
         int reverseOffset = 0;
         if (boxerState.reversed()){
-            reverseOffset = boxerTexture.getWidth()-30;
+            reverseOffset = boxerTexture.getWidth()-20;
         }else{
-            reverseOffset = 30;
+            reverseOffset = 20;
         }
-
 
 //        batch.draw(boxerTexture, boxerState.getX()-reverseOffset, boxerState.getY()); // FIXME - that '60' ain't that great
 //        batch.draw(boxerTexture, 0, 0); // FIXME - that '60' ain't that great
-
-        System.out.println(boxerState.getX());
 
         Vector3 vec=new Vector3(boxerState.getX(), boxerState.getY(),0);
         cam.project(vec);
 
         batch.draw(boxerTexture, vec.x-reverseOffset, vec.y-boxerTexture.getHeight()/2); // FIXME - that '60' ain't that great
 
-
-        System.out.println("vec.x = " + vec.x);
-        System.out.println("vec.y = " + vec.y);
 
         batch.end();
     }

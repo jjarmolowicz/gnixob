@@ -2,9 +2,9 @@ package com.tomtom.boxing;
 
 public interface BoxerController {
 
-    default void init() {
+    default void init(boolean isBlack) {
 
     }
 
-    BoxerCommand tick();
+    BoxerCommand tick(Physics physics);
 }

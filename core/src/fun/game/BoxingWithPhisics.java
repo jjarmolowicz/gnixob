@@ -2,9 +2,6 @@ package fun.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,9 +12,6 @@ import com.tomtom.boxing.BoxerCommand;
 import com.tomtom.boxing.BoxerController;
 import com.tomtom.boxing.Physics;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.Condition;
@@ -55,7 +49,7 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 	public void create() {
 		camera = new OrthographicCamera();
 //		camera.zoom = 0.5f;
-		viewport = new ExtendViewport(8, 8, camera);
+		viewport = new ExtendViewport(6, 6, camera); //tak chyba najblizej
 
 
 		debugRenderer = new Box2DDebugRenderer();
@@ -67,14 +61,14 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 		blackBoxerGraphics = new BoxerGraphics(camera);
 
 		whiteController = new DummyRobotBoxerController(Duration.ofSeconds(1));
-		whiteController.init();
+		whiteController.init(false);
 		blackController = new DummyRobotBoxerController(Duration.ofMillis(100));
-		blackController.init();
+		blackController.init(true);
 
-		whiteContainer = new RunnableControllerContainer(whiteController);
+		whiteContainer = new RunnableControllerContainer(whiteController, physics);
 		whiteThread = new Thread(whiteContainer);
 
-		blackContainer = new RunnableControllerContainer(blackController);
+		blackContainer = new RunnableControllerContainer(blackController, physics);
 		blackThread = new Thread(blackContainer);
 
 		whiteThread.start();
@@ -99,9 +93,7 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 		whiteBoxerGraphics.reder(physics.getWhiteState(), BoxerGraphics.BW.WHITE); // pieknie teraz ustawic x i y i rozmiar
 		blackBoxerGraphics.reder(physics.getBlackState(), BoxerGraphics.BW.BLACK); // pieknie teraz ustawic x i y i rozmiar
 
-
 		debugRenderer.render(physics.getWorld(), camera.combined);
-
 
 	}
 
@@ -116,9 +108,11 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 		final Condition newTick = lock.newCondition();
 		private final BoxerController controller;
 		private final AtomicReference<BoxerCommand> command = new AtomicReference<BoxerCommand>(null);
+		Physics physics;
 
-		public RunnableControllerContainer(BoxerController controller) {
+		public RunnableControllerContainer(BoxerController controller, Physics physics) {
 			this.controller = controller;
+			this.physics = physics;
 		}
 
 		@Override
@@ -127,7 +121,7 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 				lock.lock();
 				try {
 					newTick.await();
-					command.set(controller.tick());
+					command.set(controller.tick(physics));
 				} catch (InterruptedException e) {
 					Thread.currentThread().interrupt();
 					throw new RuntimeException(e);

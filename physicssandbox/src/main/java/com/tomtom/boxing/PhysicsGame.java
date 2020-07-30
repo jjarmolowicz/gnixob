@@ -93,7 +93,7 @@ public class PhysicsGame extends ApplicationAdapter {
                 lock.lock();
                 try {
                     newTick.await();
-                    command.set(controller.tick());
+                    command.set(controller.tick(physics));
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     throw new RuntimeException(e);

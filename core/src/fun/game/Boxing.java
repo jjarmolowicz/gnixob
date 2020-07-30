@@ -54,7 +54,7 @@ public class Boxing extends ApplicationAdapter {
 		sound.play();
 
 
-		Gdx.input.setInputProcessor(new InputProcessor() {
+		Gdx.input.setInputProcessor(new InputProcessor() {  //  no dobre teraz sterowanko
 			@Override
 			public boolean keyDown(int keycode) {
 				keyDown = keycode;
