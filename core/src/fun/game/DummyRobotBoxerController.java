@@ -30,7 +30,7 @@ public class DummyRobotBoxerController implements BoxerController {
     public void init(boolean isBlack) {
         this.isBlack = isBlack;
 
-        Gdx.input.setInputProcessor(new InputProcessor() {  //  no dobre teraz sterowanko
+        Gdx.input.setInputProcessor(new InputProcessor() {
             @Override
             public boolean keyDown(int keycode) {
                 keyDown = keycode;

@@ -4,8 +4,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.tomtom.boxing.BoxerCommand;
@@ -19,13 +17,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class BoxingWithPhisics extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture white;
-	Texture black;
-	Texture black0;
-	Texture black1;
-	Texture black2;
-	Texture black3;
 
 	private int x =200; //fancy.... sooooo fancyyyy
 	private int y =0;
@@ -48,8 +39,7 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 	@Override
 	public void create() {
 		camera = new OrthographicCamera();
-//		camera.zoom = 0.5f;
-		viewport = new ExtendViewport(6, 6, camera); //tak chyba najblizej
+		viewport = new ExtendViewport(6, 6, camera);
 
 
 		debugRenderer = new Box2DDebugRenderer();
@@ -90,8 +80,8 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 		blackContainer.tryToNotifyAboutATick();
 		physics.stepWorld(whiteContainer.command.get(), blackContainer.command.get());
 
-		whiteBoxerGraphics.reder(physics.getWhiteState(), BoxerGraphics.BW.WHITE); // pieknie teraz ustawic x i y i rozmiar
-		blackBoxerGraphics.reder(physics.getBlackState(), BoxerGraphics.BW.BLACK); // pieknie teraz ustawic x i y i rozmiar
+		whiteBoxerGraphics.reder(physics.getWhiteState(), BoxerGraphics.BW.WHITE);
+		blackBoxerGraphics.reder(physics.getBlackState(), BoxerGraphics.BW.BLACK);
 
 		debugRenderer.render(physics.getWorld(), camera.combined);
 
