@@ -123,6 +123,10 @@ public class DummyRobotBoxerController implements BoxerController {
                 }
             }
 
+            if (Input.Keys.SPACE == keyDown){
+                return BoxerCommand.PUNCH;
+            }
+
 
             return BoxerCommand.STOP;
 

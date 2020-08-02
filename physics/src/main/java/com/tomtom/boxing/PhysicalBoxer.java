@@ -13,6 +13,7 @@ class PhysicalBoxer {
     private boolean lastPunhchedLeft;
     private Vector2 currentImpulse = new Vector2(0, 0);
     private float scale;
+    private boolean victimOnTheLeft;
 
     public PhysicalBoxer(World world) {
         createBoxer(world);
@@ -95,6 +96,14 @@ class PhysicalBoxer {
         return this;
     }
 
+    public void punch(){
+        if (victimOnTheLeft){
+            leftFist.initPunch();
+        }else{
+            rightFist.initPunch();
+        }
+    }
+
     private void recalcScaleVectorAndApplyImpulse(Vector2 impulse) {
         Vector2 realImpulse = counterCurrentPlusNew(impulse);
         realImpulse.scl(scale);
@@ -156,20 +165,30 @@ class PhysicalBoxer {
         rightFist.step();
         leftFist.step();
 
-        if (rightFist.canPunch() && leftFist.canPunch()) {
-            if (lastPunhchedLeft) {
-                rightFist.initPunch();
-                lastPunhchedLeft = false;
-            } else {
-                leftFist.initPunch();
-                lastPunhchedLeft = true;
-            }
-        }
     }
 
     public void stop() {
         body.setAngularVelocity(0);
         body.setLinearVelocity(0, 0);
         recalcScaleVectorAndApplyImpulse(new Vector2(0,0));
+    }
+
+    public void checkVictimPosition(PhysicalBoxer victim) {
+
+        if (victim.body.getPosition().y>this.body.getPosition().y){
+            if (this.getVisualState().reversed()){
+                victimOnTheLeft = false;
+            }else{
+                victimOnTheLeft = true;
+            }
+        }else{
+            if (this.getVisualState().reversed()){
+                victimOnTheLeft = true;
+            }else{
+                victimOnTheLeft = false;
+            }
+
+        }
+
     }
 }

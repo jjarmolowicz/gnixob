@@ -36,7 +36,7 @@ public class Physics {
                     if (bUserData instanceof ImportantBoxerPart) {
                         ImportantBoxerPart bUserData1 = (ImportantBoxerPart) bUserData;
                         ImportantBoxerPart aUSerData1 = (ImportantBoxerPart) aUSerData;
-                        
+
                     }
                 }
 
@@ -130,6 +130,10 @@ public class Physics {
 
         accumulator += Math.min(delta, 0.25f);
 
+        white.checkVictimPosition(black);
+        black.checkVictimPosition(white);
+
+
         handleBoxerCommand(whiteCommand, white);
         handleBoxerCommand(blackCommand, black);
 
@@ -178,6 +182,8 @@ public class Physics {
                     boxer.goThatWay(WorldDirections.SOUTH);
                 }
                 break;
+            case PUNCH:
+                 boxer.punch();
 
             case STOP:
                 boxer.stop();
