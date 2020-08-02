@@ -21,9 +21,9 @@ public class Physics {
 
         createRing();
         white = new PhysicalBoxer(world);
-        white.moveToGivenPlaceInWorld(3, 3, 0).goThatWay(WorldDirections.WEST);
+        white.moveToGivenPlaceInWorld(2, 3, 0).goThatWay(WorldDirections.WEST);
         black = new PhysicalBoxer(world);
-        black.moveToGivenPlaceInWorld(5, 3.2f, (float) Math.toRadians(180)).goThatWay(WorldDirections.EAST);
+        black.moveToGivenPlaceInWorld(4, 3.2f, (float) Math.toRadians(180)).goThatWay(WorldDirections.EAST);
         world.setContactListener(new ContactListener() {
             @Override
             public void beginContact(Contact contact) {
@@ -36,7 +36,7 @@ public class Physics {
                     if (bUserData instanceof ImportantBoxerPart) {
                         ImportantBoxerPart bUserData1 = (ImportantBoxerPart) bUserData;
                         ImportantBoxerPart aUSerData1 = (ImportantBoxerPart) aUSerData;
-                        
+
                         aUSerData1.collisionWithOther(bUserData1);
                         bUserData1.collisionWithOther(aUSerData1);
                     }
@@ -69,15 +69,15 @@ public class Physics {
     }
 
     private void right() {
-        verticalBar(6);
+        verticalBar(5);
     }
 
     private void left() {
-        verticalBar(2);
+        verticalBar(1);
     }
 
     private void top() {
-        horizontalBar(6);
+        horizontalBar(5);
     }
 
     private void verticalBar(int i) {
@@ -122,7 +122,7 @@ public class Physics {
 
     private void bottom() {
         // Create our body definition
-        horizontalBar(2);
+        horizontalBar(1);
     }
 
 
