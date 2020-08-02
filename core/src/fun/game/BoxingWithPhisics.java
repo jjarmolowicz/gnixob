@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.tomtom.boxing.BoxerCommand;
@@ -35,6 +36,7 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 	private Thread blackThread;
 	private BoxerGraphics whiteBoxerGraphics;
 	private BoxerGraphics blackBoxerGraphics;
+	private ScoreBar scoreBar;
 
 	@Override
 	public void create() {
@@ -63,6 +65,8 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 
 		whiteThread.start();
 		blackThread.start();
+
+		scoreBar = new ScoreBar(physics, new SpriteBatch());
 	}
 
 	@Override
@@ -84,6 +88,7 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 		blackBoxerGraphics.reder(physics.getBlackState(), BoxerGraphics.BW.BLACK);
 
 		debugRenderer.render(physics.getWorld(), camera.combined);
+		scoreBar.display();
 
 	}
 

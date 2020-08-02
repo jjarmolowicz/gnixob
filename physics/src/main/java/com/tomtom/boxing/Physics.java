@@ -208,4 +208,12 @@ public class Physics {
     public BoxerVisualState getBlackState() {
         return black.getVisualState();
     }
+
+    public int getBlackPoints(){
+        return white.getNose().getHitCount();
+    }
+
+    public int getWhitePoints(){
+       return black.getNose().getHitCount();
+    }
 }

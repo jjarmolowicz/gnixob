@@ -28,4 +28,8 @@ class Nose implements ImportantBoxerPart {
         int hitCount = counter.incrementAndGet();
         System.out.println("hitCount = " + hitCount);
     }
+
+    public int getHitCount(){
+        return counter.get();
+    }
 }

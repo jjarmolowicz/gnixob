@@ -14,6 +14,7 @@ class PhysicalBoxer {
     private Vector2 currentImpulse = new Vector2(0, 0);
     private float scale;
     private boolean victimOnTheLeft;
+    private Nose nose;
 
     public PhysicalBoxer(World world) {
         createBoxer(world);
@@ -34,8 +35,13 @@ class PhysicalBoxer {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(0.03f, 0.03f, new Vector2(0.13f, 0), 0);
         Fixture noseFixture = createFixtureFromShape(body, shape);
-        noseFixture.setUserData(new Nose(body));
+        this.nose = new Nose(body);
+        noseFixture.setUserData(nose);
         shape.dispose();
+    }
+
+    public Nose getNose(){
+        return nose;
     }
 
     private void addBoxerBodyToBody() {
