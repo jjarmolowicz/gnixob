@@ -36,7 +36,9 @@ public class Physics {
                     if (bUserData instanceof ImportantBoxerPart) {
                         ImportantBoxerPart bUserData1 = (ImportantBoxerPart) bUserData;
                         ImportantBoxerPart aUSerData1 = (ImportantBoxerPart) aUSerData;
-
+                        
+                        aUSerData1.collisionWithOther(bUserData1);
+                        bUserData1.collisionWithOther(aUSerData1);
                     }
                 }
 
