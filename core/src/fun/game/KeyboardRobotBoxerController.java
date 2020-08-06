@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class DummyRobotBoxerController implements BoxerController {
+public class KeyboardRobotBoxerController implements BoxerController {
     private Random rand = new Random();
     private Duration sleep;
     private int x =200; //fancy.... sooooo fancyyyy
@@ -20,7 +20,7 @@ public class DummyRobotBoxerController implements BoxerController {
     int keyDown = -24;
     boolean isBlack = false;
 
-    public DummyRobotBoxerController(Duration sleep) {
+    public KeyboardRobotBoxerController(Duration sleep) {
 
         this.sleep = sleep;
         keyDown =  -111;

@@ -28,8 +28,8 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 
 	Box2DDebugRenderer debugRenderer;
 	private Physics physics;
-	private DummyRobotBoxerController whiteController;
-	private DummyRobotBoxerController blackController;
+	private KeyboardRobotBoxerController whiteController;
+	private KeyboardRobotBoxerController blackController;
 	private Thread whiteThread;
 	private RunnableControllerContainer whiteContainer;
 	private RunnableControllerContainer blackContainer;
@@ -52,9 +52,9 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 		whiteBoxerGraphics = new BoxerGraphics(camera);
 		blackBoxerGraphics = new BoxerGraphics(camera);
 
-		whiteController = new DummyRobotBoxerController(Duration.ofSeconds(1));
+		whiteController = new KeyboardRobotBoxerController(Duration.ofSeconds(1));
 		whiteController.init(false);
-		blackController = new DummyRobotBoxerController(Duration.ofMillis(100));
+		blackController = new KeyboardRobotBoxerController(Duration.ofMillis(100));
 		blackController.init(true);
 
 		whiteContainer = new RunnableControllerContainer(whiteController, physics);

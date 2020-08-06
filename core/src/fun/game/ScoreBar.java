@@ -17,7 +17,7 @@ public class ScoreBar {
 
     public void display(){
         batch.begin();
-        font.draw(batch,"test score display"+physics.getBlackPoints()+" "+physics.getWhitePoints(), 100, 600);
+        font.draw(batch,"BLACK "+physics.getBlackPoints()+"     WHITE "+physics.getWhitePoints(), 300, 800);
         batch.end();
     }
 }
