@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.*;
 
 class PhysicalBoxer {
 
-    private static float BOXER_SPEED = 140f * 1000 / 60 / 60 / 60; //30 km/h
+    private static float BOXER_SPEED = 340f * 1000 / 60 / 60 / 60; //30 km/h
 
     private Body body;
     private PhysicalFist leftFist;

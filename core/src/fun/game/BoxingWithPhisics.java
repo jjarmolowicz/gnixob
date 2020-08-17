@@ -52,9 +52,9 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 		whiteBoxerGraphics = new BoxerGraphics(camera);
 		blackBoxerGraphics = new BoxerGraphics(camera);
 
-		whiteController = new KeyboardRobotBoxerController(Duration.ofSeconds(1));
+		whiteController = new KeyboardRobotBoxerController(Duration.ofMillis(20));
 		whiteController.init(false);
-		blackController = new KeyboardRobotBoxerController(Duration.ofMillis(100));
+		blackController = new KeyboardRobotBoxerController(Duration.ofMillis(20));
 		blackController.init(true);
 
 		whiteContainer = new RunnableControllerContainer(whiteController, physics);

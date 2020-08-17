@@ -43,7 +43,7 @@ public class PhysicalFist implements ImportantBoxerPart {
     public void step() {
         if (punching) {
             if (offsetPointer < FIST_OFFSETS.length - 1) {
-                if (accumulator++ > 5) {
+                if (accumulator++ > 2) {
                     ++offsetPointer;
                     accumulator = 0;
                 }
@@ -52,7 +52,7 @@ public class PhysicalFist implements ImportantBoxerPart {
             }
         } else {
             if (offsetPointer > 0) {
-                if (accumulator++ > 5) {
+                if (accumulator++ > 2) {
                     --offsetPointer;
                     accumulator = 0;
                 }
