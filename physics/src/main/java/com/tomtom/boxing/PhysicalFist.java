@@ -10,7 +10,7 @@ public class PhysicalFist implements ImportantBoxerPart {
         LEFT,RIGHT;
     }
 
-    public static final float BASE_X = 0.2f;
+    public static final float BASE_X = 0.17f;
     private static float[] FIST_OFFSETS = {0, 0.025f, 0.05f, 0.1f, 0.2f, 0.3f, 0.5f};
     private Fixture fixture;
 
@@ -24,7 +24,7 @@ public class PhysicalFist implements ImportantBoxerPart {
 
     public PhysicalFist(Body boxerBody,FistSide fistSide) {
         this.boxerBody = boxerBody;
-        this.y = (FistSide.LEFT.equals(fistSide)?0.2f:-0.2f);
+        this.y = (FistSide.LEFT.equals(fistSide)?0.22f:-0.22f);
         this.fistSide = fistSide;
         // Create a circle shape and set its radius to 6
         putFistIntoLocatoin(BASE_X);

@@ -78,7 +78,7 @@ public class KeyboardRobotBoxerController implements BoxerController {
         });
 
     }
-    
+
     @Override
     public BoxerCommand tick(Physics physics) {
         try {

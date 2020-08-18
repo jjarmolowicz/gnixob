@@ -33,7 +33,7 @@ class PhysicalBoxer {
 
     private void addBoxerNoseToBody() {
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(0.03f, 0.03f, new Vector2(0.13f, 0), 0);
+        shape.setAsBox(0.06f, 0.03f, new Vector2(0.13f, 0), 0);
         Fixture noseFixture = createFixtureFromShape(body, shape);
         this.nose = new Nose(body);
         noseFixture.setUserData(nose);
@@ -46,7 +46,7 @@ class PhysicalBoxer {
 
     private void addBoxerBodyToBody() {
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(0.1f, 0.2f);
+        shape.setAsBox(0.1f, 0.24f);
         createFixtureFromShape(body, shape).setUserData((ImportantBoxerPart) other -> {
         });
         shape.dispose();
