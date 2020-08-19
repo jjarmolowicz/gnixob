@@ -11,7 +11,7 @@ public class PhysicalFist implements ImportantBoxerPart {
     }
 
     public static final float BASE_X = 0.17f;
-    private static float[] FIST_OFFSETS = {0, 0.025f, 0.05f, 0.1f, 0.2f, 0.3f, 0.5f};
+    private static float[] FIST_OFFSETS = {0, -0.025f, 0.05f, 0.1f, 0.2f, 0.3f, 0.47f};
     private Fixture fixture;
 
     private short offsetPointer = 0;

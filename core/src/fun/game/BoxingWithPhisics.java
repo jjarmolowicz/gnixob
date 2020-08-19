@@ -87,7 +87,7 @@ public class BoxingWithPhisics extends ApplicationAdapter {
 		whiteBoxerGraphics.reder(physics.getWhiteState(), BoxerGraphics.BW.WHITE);
 		blackBoxerGraphics.reder(physics.getBlackState(), BoxerGraphics.BW.BLACK);
 
-		//debugRenderer.render(physics.getWorld(), camera.combined);
+		debugRenderer.render(physics.getWorld(), camera.combined);
 		scoreBar.display();
 
 	}

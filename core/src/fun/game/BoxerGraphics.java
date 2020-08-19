@@ -57,15 +57,27 @@ public class BoxerGraphics {
     static Texture white3;
 
     public enum BW{
-        BLACK(new ArrayList<Texture>(Arrays.asList(black, black,black0,black0, black1, black2, black3,black3)),
-                new ArrayList<Texture>(Arrays.asList(black, black, black, black0, blackL1, blackL2, blackL3)),
-                new ArrayList<Texture>(Arrays.asList(rblack, rblack,rblack,rblack, rblack1, rblack2, rblack3,rblack3)),
-                new ArrayList<Texture>(Arrays.asList(rblack, rblack,rblack,rblack, rblackL1, rblackL2, rblackL3,rblackL3))),
+//        BLACK(new ArrayList<Texture>(Arrays.asList(black, black,black0,black0, black1, black2, black3,black3)),
+//                new ArrayList<Texture>(Arrays.asList(black, black, black, black0, blackL1, blackL2, blackL3)),
+//                new ArrayList<Texture>(Arrays.asList(rblack, rblack,rblack,rblack, rblack1, rblack2, rblack3,rblack3)),
+//                new ArrayList<Texture>(Arrays.asList(rblack, rblack,rblack,rblack, rblackL1, rblackL2, rblackL3,rblackL3))),
+//
+//        WHITE(new ArrayList<Texture>(Arrays.asList(white, white,white,white, white1, white2, white3,white3)),
+//                new ArrayList<Texture>(Arrays.asList(white, white,white,white, whiteL1, whiteL2, whiteL3,whiteL3)),
+//                new ArrayList<Texture>(Arrays.asList(rwhite, rwhite,rwhite,rwhite, rwhite1, rwhite2, rwhite3,rwhite3)),
+//                new ArrayList<Texture>(Arrays.asList(rwhite, rwhite,rwhite,rwhite, rwhiteL1, rwhiteL2, rwhiteL3,rwhiteL3)));
 
-        WHITE(new ArrayList<Texture>(Arrays.asList(white, white,white,white, white1, white2, white3,white3)),
-                new ArrayList<Texture>(Arrays.asList(white, white,white,white, whiteL1, whiteL2, whiteL3,whiteL3)),
-                new ArrayList<Texture>(Arrays.asList(rwhite, rwhite,rwhite,rwhite, rwhite1, rwhite2, rwhite3,rwhite3)),
-                new ArrayList<Texture>(Arrays.asList(rwhite, rwhite,rwhite,rwhite, rwhiteL1, rwhiteL2, rwhiteL3,rwhiteL3)));
+        BLACK(new ArrayList<Texture>(Arrays.asList(black, black0,black0,black1, black1, black2, black3,black3)),
+                new ArrayList<Texture>(Arrays.asList(black, black, black0, black0, blackL1, blackL2, blackL3)),
+                new ArrayList<Texture>(Arrays.asList(rblack, rblack1, rblack1, rblack2, rblack2, rblack3, rblack3, rblack3)),
+                new ArrayList<Texture>(Arrays.asList(rblack, rblack, rblackL1, rblackL1, rblackL2, rblackL2, rblackL3, rblackL3))),
+
+        WHITE(new ArrayList<Texture>(Arrays.asList(white, white,white1,white1, white2, white2, white3,white3)),
+                new ArrayList<Texture>(Arrays.asList(white, white,white1,white1, whiteL2, whiteL2, whiteL3,whiteL3)),
+                new ArrayList<Texture>(Arrays.asList(rwhite, rwhite,rwhite1,rwhite1, rwhite2, rwhite2, rwhite3,rwhite3)),
+                new ArrayList<Texture>(Arrays.asList(rwhite, rwhite,rwhite1,rwhite1, rwhiteL2, rwhiteL2, rwhiteL3,rwhiteL3)));
+
+
         List<Texture> statesL;
         List<Texture> statesR;
 
