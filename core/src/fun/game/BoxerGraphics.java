@@ -108,11 +108,11 @@ public class BoxerGraphics {
         black2 = new Texture(Gdx.files.internal("blackBoxerb2.png"));
         black3 = new Texture(Gdx.files.internal("blackBoxerb3.png"));
 
-        rblack1 = new Texture(Gdx.files.internal("RblackBoxerb1.png"));
-        rblack2 = new Texture(Gdx.files.internal("RblackBoxerb2.png"));
-        rblack3 = new Texture(Gdx.files.internal("RblackBoxerb3.png"));
+        rblack1 = new Texture(Gdx.files.internal("RBlackBoxerb1.png"));
+        rblack2 = new Texture(Gdx.files.internal("RBlackBoxerb2.png"));
+        rblack3 = new Texture(Gdx.files.internal("RBlackBoxerb3.png"));
 
-        rblack = new Texture(Gdx.files.internal("RblackBoxer.png"));
+        rblack = new Texture(Gdx.files.internal("RBlackBoxer.png"));
 
         blackL1 = new Texture(Gdx.files.internal("blackBoxerbL1.png"));
         blackL2 = new Texture(Gdx.files.internal("blackBoxerbL2.png"));
@@ -120,17 +120,17 @@ public class BoxerGraphics {
 
         rwhite = new Texture(Gdx.files.internal("RWhiteBoxer.png"));
 
-        rblackL1 = new Texture(Gdx.files.internal("RblackBoxerbL1.png"));
-        rblackL2 = new Texture(Gdx.files.internal("RblackBoxerbL2.png"));
-        rblackL3 = new Texture(Gdx.files.internal("RblackBoxerbL3.png"));
+        rblackL1 = new Texture(Gdx.files.internal("RBlackBoxerbL1.png"));
+        rblackL2 = new Texture(Gdx.files.internal("RBlackBoxerbL2.png"));
+        rblackL3 = new Texture(Gdx.files.internal("RBlackBoxerbL3.png"));
 
-        rwhiteL1 = new Texture(Gdx.files.internal("RwhiteBoxerbL1.png"));
-        rwhiteL2 = new Texture(Gdx.files.internal("RwhiteBoxerbL2.png"));
-        rwhiteL3 = new Texture(Gdx.files.internal("RwhiteBoxerbL3.png"));
+        rwhiteL1 = new Texture(Gdx.files.internal("RWhiteBoxerbL1.png"));
+        rwhiteL2 = new Texture(Gdx.files.internal("RWhiteBoxerbL2.png"));
+        rwhiteL3 = new Texture(Gdx.files.internal("RWhiteBoxerbL3.png"));
 
-        rwhite1 = new Texture(Gdx.files.internal("RwhiteBoxerb1.png"));
-        rwhite2 = new Texture(Gdx.files.internal("RwhiteBoxerb2.png"));
-        rwhite3 = new Texture(Gdx.files.internal("RwhiteBoxerb3.png"));
+        rwhite1 = new Texture(Gdx.files.internal("RWhiteBoxerb1.png"));
+        rwhite2 = new Texture(Gdx.files.internal("RWhiteBoxerb2.png"));
+        rwhite3 = new Texture(Gdx.files.internal("RWhiteBoxerb3.png"));
 
         whiteL1 = new Texture(Gdx.files.internal("whiteBoxerbL1.png"));
         whiteL2 = new Texture(Gdx.files.internal("whiteBoxerbL2.png"));
